@@ -70,9 +70,6 @@ export function AdminLogin() {
         <button type="submit" className="btn-primary w-full mt-6" disabled={loading}>
           {loading ? "Signing in…" : "Sign in"}
         </button>
-        <p className="t-caption text-stone mt-4">
-          Seeded account: <code>admin@saqib.dev</code> / <code>admin1234</code>
-        </p>
       </form>
     </div>
   );

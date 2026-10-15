@@ -15,9 +15,9 @@ npm run dev
 ```
 
 - Site: http://localhost:3000
-- Admin: http://localhost:3000/admin (DB-backed login — seeded account:
-  `admin@saqib.dev` / `admin1234`; override with `ADMIN_EMAIL`/`ADMIN_PASSWORD`
-  env vars before running `db:setup`)
+- Admin: http://localhost:3000/admin (DB-backed login; seed an admin account
+  by setting `ADMIN_EMAIL`/`ADMIN_PASSWORD` env vars, then run
+  `npm run db:setup`)
 
 ## Features
 
