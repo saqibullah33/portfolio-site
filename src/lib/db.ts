@@ -56,13 +56,13 @@ export async function createEvent(input: EventInput): Promise<PortfolioEvent> {
   const rows = (await sql`
     INSERT INTO events (title, event_date, date_label, location, url, registered,
       checked_in, avg_rating, rating_count, feedback, status, cover_image,
-      description, embed_url)
+      description, embed_url, x_post_url)
     VALUES (${input.title}, ${input.event_date ?? null}, ${input.date_label ?? ""},
       ${input.location ?? ""}, ${input.url ?? ""}, ${input.registered ?? 0},
       ${input.checked_in ?? null}, ${input.avg_rating ?? null},
       ${input.rating_count ?? null}, ${input.feedback ?? null}, ${status},
       ${input.cover_image ?? null}, ${input.description ?? null},
-      ${input.embed_url ?? null})
+      ${input.embed_url ?? null}, ${input.x_post_url?.trim() || null})
     RETURNING *
   `) as PortfolioEvent[];
   return rows[0];
@@ -76,7 +76,14 @@ export async function updateEvent(
   const existing = await getEvent(id);
   if (!existing) return null;
 
-  const e = { ...existing, ...input, embed_url: input.embed_url ?? existing.embed_url ?? null };
+  const e = {
+    ...existing,
+    ...input,
+    embed_url: input.embed_url ?? existing.embed_url ?? null,
+    x_post_url: input.x_post_url === undefined
+      ? existing.x_post_url ?? null
+      : input.x_post_url?.trim() || null,
+  };
   const rows = (await sql`
     UPDATE events SET
       title = ${e.title},
@@ -92,7 +99,8 @@ export async function updateEvent(
       status = ${e.status},
       cover_image = ${e.cover_image},
       description = ${e.description},
-      embed_url = ${e.embed_url}
+      embed_url = ${e.embed_url},
+      x_post_url = ${e.x_post_url}
     WHERE id = ${id}
     RETURNING *
   `) as PortfolioEvent[];

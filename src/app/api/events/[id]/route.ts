@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { deleteEvent, getEvent, updateEvent } from "@/lib/db";
 import { isAdmin } from "@/lib/auth";
+import { validXPostInput } from "@/lib/x-post";
 
 export const dynamic = "force-dynamic";
 
@@ -19,6 +20,8 @@ export async function PUT(req: Request, ctx: Ctx) {
   const { id } = await ctx.params;
   try {
     const body = await req.json();
+    if (!validXPostInput(body.x_post_url))
+      return NextResponse.json({ error: "Enter a valid X post URL (https://x.com/user/status/123)." }, { status: 400 });
     const event = await updateEvent(Number(id), body);
     if (!event)
       return NextResponse.json({ error: "Not found" }, { status: 404 });

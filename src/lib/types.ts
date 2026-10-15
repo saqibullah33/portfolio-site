@@ -24,6 +24,7 @@ export interface PortfolioEvent {
   cover_image: string | null;
   description: string | null;
   embed_url: string | null;
+  x_post_url: string | null;
   created_at: string;
   media?: EventMedia[];
 }
@@ -43,4 +44,5 @@ export interface EventInput {
   cover_image?: string | null;
   description?: string | null;
   embed_url?: string | null;
+  x_post_url?: string | null;
 }

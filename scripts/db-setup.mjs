@@ -51,6 +51,7 @@ async function createSchema() {
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
   )`;
   await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS embed_url TEXT`;
+  await sql`ALTER TABLE events ADD COLUMN IF NOT EXISTS x_post_url TEXT`;
   await sql`CREATE TABLE IF NOT EXISTS event_media (
     id SERIAL PRIMARY KEY,
     event_id INTEGER NOT NULL REFERENCES events(id) ON DELETE CASCADE,

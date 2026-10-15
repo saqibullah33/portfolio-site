@@ -25,7 +25,17 @@ npm run dev
 - Public pages render live from the DB (`/`, `/events/[id]`)
 - Admin CRUD at `/admin`: create, edit, delete events; upload images per event;
   set cover image; delete media
+- Optional **X post URL** per event (admin field "X post URL"); the post is
+  embedded on the public event page, with a link fallback if the embed can't load.
+  Only `x.com`/`twitter.com` `/user/status/<id>` links are accepted.
 - Re-seed or re-import CSV: `npm run db:setup -- --force --csv path/to/file.csv`
+
+## Migrations
+
+`npm run db:setup` adds new columns idempotently, or run individual SQL files
+in `scripts/` against your database (e.g. paste into the Neon SQL editor):
+
+- `scripts/add-x-post-url.sql` — `ALTER TABLE events ADD COLUMN IF NOT EXISTS x_post_url TEXT`
 
 ## Media storage
 

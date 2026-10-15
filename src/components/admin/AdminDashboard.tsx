@@ -27,7 +27,7 @@ const EMPTY: EventInput = {
   status: "past",
   cover_image: "",
   description: "",
-  embed_url: "",
+  x_post_url: "",
 };
 
 export function AdminDashboard() {
@@ -204,7 +204,7 @@ function EventEditor({
           status: event.status,
           cover_image: event.cover_image ?? "",
           description: event.description ?? "",
-          embed_url: event.embed_url ?? "",
+          x_post_url: event.x_post_url ?? "",
         }
       : EMPTY
   );
@@ -341,13 +341,15 @@ function EventEditor({
               onChange={(e) => set("url", e.target.value)}
             />
           </div>
-          <div>
-            <label className="label">Luma embed URL (optional)</label>
+          <div className="md:col-span-2">
+            <label className="label" htmlFor="x-post-url">X post URL (optional)</label>
             <input
+              id="x-post-url"
+              type="url"
               className={inputCls}
-              placeholder="https://luma.com/embed/event/evt-…/simple"
-              value={form.embed_url ?? ""}
-              onChange={(e) => set("embed_url", e.target.value)}
+              placeholder="https://x.com/username/status/123456789"
+              value={form.x_post_url ?? ""}
+              onChange={(e) => set("x_post_url", e.target.value)}
             />
           </div>
           <div>

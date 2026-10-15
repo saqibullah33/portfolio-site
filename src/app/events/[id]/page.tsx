@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getEvent } from "@/lib/db";
-import { eventDateLabel, isUpcoming, lumaEmbedUrl } from "@/lib/format";
+import { eventDateLabel, isUpcoming } from "@/lib/format";
 import { MediaGallery } from "@/components/Gallery";
+import { XPost } from "@/components/XPost";
 import {
   IconCalendar,
   IconExternal,
@@ -22,7 +23,6 @@ export default async function EventPage({
   if (!event) notFound();
 
   const cover = event.cover_image || event.media?.[0]?.url || null;
-  const embed = lumaEmbedUrl(event);
   const upcoming = isUpcoming(event);
   const feedbackItems = event.feedback
     ?.split("|")
@@ -53,21 +53,7 @@ export default async function EventPage({
               <p className="t-body text-charcoal mt-8">{event.description}</p>
             )}
 
-            {embed && (
-              <div className="mt-8">
-                <h2 className="t-heading-sm text-ink-deep mb-4 heading-feature">
-                  Event on Luma
-                </h2>
-                <iframe
-                  src={embed}
-                  className="w-full h-[450px] rounded-xl border border-hairline"
-                  allow="fullscreen; payment"
-                  aria-hidden={false}
-                  tabIndex={0}
-                  title={`${event.title} — Luma event`}
-                />
-              </div>
-            )}
+            {event.x_post_url && <XPost url={event.x_post_url} />}
           </div>
 
           {/* Right: summary rail */}
