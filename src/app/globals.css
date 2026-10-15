@@ -1,0 +1,284 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens — mapped 1:1 from design.md (Meta design system)
+--------------------------------------------------------------------------- */
+@theme {
+  /* Colors */
+  --color-primary: #0064e0;
+  --color-primary-deep: #0457cb;
+  --color-primary-soft: #0091ff;
+  --color-on-primary: #ffffff;
+  --color-ink-button: #000000;
+  --color-on-ink-button: #ffffff;
+  --color-fb-blue: #1876f2;
+  --color-meta-link: #385898;
+  --color-oculus-purple: #a121ce;
+  --color-success: #31a24c;
+  --color-attention: #f2a918;
+  --color-warning: #f7b928;
+  --color-warning-bg: #ffe200;
+  --color-critical: #e41e3f;
+  --color-critical-strong: #f0284a;
+  --color-canvas: #ffffff;
+  --color-surface-soft: #f1f4f7;
+  --color-ink-deep: #0a1317;
+  --color-ink: #1c1e21;
+  --color-charcoal: #444950;
+  --color-slate: #4b4c4f;
+  --color-steel: #5d6c7b;
+  --color-stone: #8595a4;
+  --color-hairline: #ced0d4;
+  --color-hairline-soft: #dee3e9;
+  --color-disabled: #bcc0c4;
+
+  /* Radius */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 16px;
+  --radius-xxl: 24px;
+  --radius-xxxl: 32px;
+  --radius-feature: 40px;
+  --radius-full: 100px;
+
+  /* Font — Optimistic VF fallbacks per design.md */
+  --font-sans: var(--font-montserrat), "Helvetica Neue", Helvetica, Arial,
+    "Noto Sans", sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Typography roles (Optimistic VF scale — ss01/ss02 on all headings)
+--------------------------------------------------------------------------- */
+@layer components {
+  .t-hero {
+    font-size: 64px;
+    font-weight: 500;
+    line-height: 1.16;
+    font-feature-settings: "ss01", "ss02";
+  }
+  .t-display {
+    font-size: 48px;
+    font-weight: 500;
+    line-height: 1.17;
+    font-feature-settings: "ss01", "ss02";
+  }
+  .t-heading-lg {
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.28;
+    font-feature-settings: "ss01", "ss02";
+  }
+  .t-heading-md {
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1.21;
+    font-feature-settings: "ss01", "ss02";
+  }
+  .t-heading-sm {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.25;
+    font-feature-settings: "ss01", "ss02";
+  }
+  .t-subtitle-lg {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.44;
+  }
+  .t-subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.44;
+  }
+  .t-body-bold {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+  .t-body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+  .t-body-sm-bold {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.43;
+    letter-spacing: -0.14px;
+  }
+  .t-body-sm {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.43;
+    letter-spacing: -0.14px;
+  }
+  .t-caption-bold {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.33;
+  }
+  .t-caption {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.33;
+  }
+  .t-button {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.43;
+    letter-spacing: -0.14px;
+  }
+  .t-link {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+
+  /* ---------------------------------------------------------------------
+     Components
+  --------------------------------------------------------------------- */
+  .btn-primary,
+  .btn-cta,
+  .btn-secondary,
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.43;
+    letter-spacing: -0.14px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background-color 150ms ease-out, color 150ms ease-out,
+      border-color 150ms ease-out;
+  }
+  .btn-primary {
+    @apply bg-ink-button text-on-ink-button px-[30px] py-[14px] active:bg-charcoal disabled:bg-disabled disabled:text-canvas;
+  }
+  .btn-cta {
+    @apply bg-primary text-on-primary px-[30px] py-[14px] active:bg-primary-deep disabled:bg-disabled disabled:text-canvas;
+  }
+  .btn-secondary {
+    @apply bg-transparent text-ink-deep border-2 border-ink-deep px-[28px] py-[12px];
+  }
+  .btn-ghost {
+    @apply bg-transparent text-ink-deep border-2 border-ink-deep/12 px-[22px] py-[10px];
+  }
+  .pill-tab {
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.43;
+    letter-spacing: -0.14px;
+    @apply bg-canvas text-ink border border-hairline rounded-full px-4 py-2 transition-colors duration-150 cursor-pointer whitespace-nowrap;
+  }
+  .pill-tab-active {
+    @apply bg-ink-deep text-canvas border-ink-deep;
+  }
+  .icon-btn {
+    @apply inline-flex items-center justify-center w-10 h-10 rounded-full bg-canvas text-ink transition-colors duration-150 cursor-pointer;
+  }
+
+  .card {
+    @apply bg-canvas rounded-xxxl p-8 border border-hairline-soft;
+  }
+  .card-icon {
+    @apply bg-canvas rounded-xl p-6 border border-hairline-soft;
+  }
+  .card-summary {
+    @apply bg-canvas rounded-xl p-6 border border-hairline-soft;
+    box-shadow: rgba(20, 22, 26, 0.3) 0px 1px 4px 0px;
+  }
+  .card-promo {
+    @apply bg-ink-deep text-canvas rounded-xxxl p-12 md:p-16;
+  }
+
+  .badge,
+  .badge-success,
+  .badge-attention,
+  .badge-warning,
+  .badge-critical {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.33;
+    border-radius: 100px;
+    padding: 4px 10px;
+  }
+  .badge-success {
+    @apply bg-success text-canvas;
+  }
+  .badge-attention {
+    @apply bg-attention text-canvas;
+  }
+  .badge-warning {
+    @apply bg-warning text-ink-deep;
+  }
+  .badge-critical {
+    @apply bg-critical text-canvas;
+  }
+
+  .input {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+    @apply w-full h-11 bg-canvas text-ink border border-hairline rounded-lg px-3 outline-none transition-shadow duration-150 focus:border-2 focus:border-fb-blue placeholder:text-stone;
+  }
+  .input-error {
+    @apply border-critical-strong focus:border-critical-strong;
+  }
+  .label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.43;
+    letter-spacing: -0.14px;
+    @apply text-ink mb-1.5;
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-[1280px] px-6 md:px-10;
+  }
+  .section {
+    @apply py-16 md:py-20;
+  }
+
+  .heading-feature {
+    font-feature-settings: "ss01", "ss02";
+  }
+}
+
+/* Responsive hero type per design.md collapsing strategy */
+@media (max-width: 767px) {
+  .t-hero {
+    font-size: 36px;
+    line-height: 1.28;
+  }
+  .t-display {
+    font-size: 32px;
+  }
+}
+@media (max-width: 479px) {
+  .t-hero {
+    font-size: 24px;
+    line-height: 1.25;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-canvas text-ink font-sans antialiased;
+}
